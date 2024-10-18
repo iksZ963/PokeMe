@@ -29,6 +29,7 @@ const ImageUpload = () => {
       }
     
       const data = await response.json();
+      console.log(data);
       setImageUrl(data.output_url); // Adjust according to the response structure
     } catch (error) {
       console.error('Error uploading image:', error);

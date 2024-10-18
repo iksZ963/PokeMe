@@ -1,8 +1,6 @@
 import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageService } from './image.service';
-import { Request } from 'express'; // Import Request type
-import { Express } from 'express'; // Import Express types
 
 @Controller('image')
 export class ImageController {
@@ -10,7 +8,8 @@ export class ImageController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadImage(@UploadedFile() file: Express.Multer.File) { // Use Express.Multer.File
-    return await this.imageService.transformImage(file);
+  async uploadImage(@UploadedFile() file: Express.Multer.File) {
+    const transformedImage = await this.imageService.transformImage(file);
+    return { output_url: transformedImage.output_url }; // Adjust according to DeepAI response
   }
 }
